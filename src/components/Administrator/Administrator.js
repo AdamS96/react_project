@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {useParams, useHistory} from "react-router";
+import {useHistory} from "react-router";
 import './Administrator.css';
 import axios from 'axios';
 import { Button, Form, Row, Col, Container, Alert } from 'react-bootstrap';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
 
 
 function Administrator(){
     
     const [driverID, setDriverID] =  useState('');
-    const [driverData, setDriverData] = useState([]);
+    //const [driverData, setDriverData] = useState([]);
     let history = useHistory();
     const [ID,setID] = useState('');
     const [tableData,setTableData] = useState([]);
@@ -26,14 +26,11 @@ function Administrator(){
           axios.put(endpointURL,{contactNumber:phoneNumber})
             .then((response)=>{console.log(response)})
             .catch((err)=>{console.log(err)});
+            window.alert(`Contact Number for Driver ${ID} Successfully Changed.`);
         }else{
-          window.alert("Phone number invalid format");
+          window.alert("Phone number must be 11 digits");
         }
       }
-
-
-
-
 
     function getUserDelete(e){
         e.preventDefault();
@@ -53,18 +50,24 @@ function Administrator(){
   
             if (show) {
               return (
+                
                 <Alert show={show} variant="danger">
                 <Alert.Heading>Caution</Alert.Heading>
                 <p>
-                  You are about to delete user <b>{ID}</b>
+                  You are about to delete driver <b>{ID}</b>
                 </p>
                 <hr />
                 
                 <div className="d-flex justify-content-end">
-                  <Button onClick={() => {setShow(false);
+                  <Button style={{marginRight: 10, backgroundColor: 'red'}} onClick={() => {setShow(false);
                                           deleteUser();}} 
                                           >
                     Confirm
+                  </Button>
+                  <Button onClick={() => {setShow(false);
+                                          }} 
+                                          >
+                    Cancel
                   </Button>
                 </div>
               </Alert>
@@ -78,7 +81,7 @@ function Administrator(){
               const endpointURL = `https://6151d1894a5f22001701d469.mockapi.io/api/v1/users/${ID}`;
         
               axios.delete(endpointURL)
-              .then(()=>{window.alert("User Successfully Deleted")})
+              .then(()=>{window.alert(`Driver ${ID} Successfully Deleted`)})
               .catch((err)=>{console.log(err)});
             }
           }
@@ -87,18 +90,18 @@ return(
 <main className="page admin-page">
     <section className="admin-page dark">
 <Container>
-<div class="block-heading">
+<div className="block-heading">
           <h2>Admin Panel</h2>
           <p></p>
         </div>
     <Row>
         
 
-            <div class="admin-panel">
+            <div className="admin-panel">
                 <Row>
         <Col xs={12}>
           
-            <section class="admin-panel-layout">
+            <section className="admin-panel-layout">
                 <fieldset>
                 <h3 className="section-heading">Search Driver Details</h3>
         <Form>
@@ -108,7 +111,7 @@ return(
           <Form.Control type="number" onChange={e => setDriverID(e.target.value)} placeholder="Driver ID" aria-label="driver ID" aria-describedby="basic-addon1" />
         </Form.Group>
         </Col>
-          <Button type="submit" onClick={() => {history.push(`./readdriver/${driverID}`)}}>Search</Button>
+          <Button type="submit" onClick={() => {history.push(`../readdriver/${driverID}`)}}>Search</Button>
         
 
       </Form></fieldset></section></Col></Row>

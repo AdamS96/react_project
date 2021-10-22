@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useState } from 'react';
-import {Table, Button, Row, Col, Container} from 'react-bootstrap';
+import React, {useEffect, useState } from 'react';
+import {Button, Row, Col, Container} from 'react-bootstrap';
 import './ReadDriver.css';
 import axios from 'axios';
-import {useParams, useLocation, useHistory} from "react-router";
+import {useParams} from "react-router";
 import { Link } from 'react-router-dom';
 
 
@@ -10,16 +10,16 @@ function ReadDriver (){
 
  
    const [driverData, setDriverData] = useState([]);
-   const [driverID, setDriverID] = useState('');
+  // const [driverID, setDriverID] = useState('');
    let {name} = useParams();
   
-  useEffect(
-    () => {
-      setDriverID(localStorage.getItem('id'));
-      console.log(driverID);
-    },
-    []
-  )
+  // useEffect(
+  //   () => {
+  //     setDriverID(localStorage.getItem('id'));
+  //     console.log(driverID);
+  //   },
+  //   []
+  // )
 
   const callMockAPIWithAxiosGET = () => {
     const endpointURL = `https://6151d1894a5f22001701d469.mockapi.io/api/v1/users/${name}`;
@@ -36,7 +36,7 @@ function ReadDriver (){
     <main className="page user-details">
       <section className="user-details backdrop">
     <Container>
-      <div class="block-heading">
+      <div className="block-heading">
       <h2>Driver Details</h2>
           <p></p>
           </div>
@@ -48,29 +48,29 @@ function ReadDriver (){
                     
                     <h2 className="section-heading">User Details</h2>
                     <div className="userdetailFormat">
-                      <p>Driver ID: <span class="spantext">{driverData.id}</span></p>
-      <p>Driver Name: <span class="spantext">{driverData.prefix} {driverData.firstName} {driverData.lastName}</span></p>   
-      <p>Contact Number: <span class="spantext">{driverData.contactNumber}</span></p>
+                      <p>Driver ID: <span className="spantext">{driverData.id}</span></p>
+      <p>Driver Name: <span className="spantext">{driverData.prefix} {driverData.firstName} {driverData.lastName}</span></p>   
+      <p>Contact Number: <span className="spantext">{driverData.contactNumber}</span></p>
       </div>
       <h2 className="section-heading">Address</h2>
       <div className="addressdetailFormat">
-      <p><span class="spantext">{driverData.addressLine1}</span></p>
-      <p><span class="spantext">{driverData.addressLine2}</span></p>
-      <p><span class="spantext">{driverData.city}</span></p>
-      <p><span class="spantext">{driverData.postcode}</span></p>
+      <p><span className="spantext">{driverData.addressLine1}</span></p>
+      <p><span className="spantext">{driverData.addressLine2}</span></p>
+      <p><span className="spantext">{driverData.city}</span></p>
+      <p><span className="spantext">{driverData.postcode}</span></p>
       </div>
       <h2 className="section-heading">Vehicle Details</h2>
       <div className="vechicledetailFormat">
-      <p>Vehicle Type: <span class="spantext">{driverData.vehicleType}</span></p>
-      <p>Engine Size: <span class="spantext">{driverData.engineSize} (CC)</span></p>
-      <p>Current Value: <span class="spantext">£{driverData.currentVehicleValue}</span></p>
-      <p>Date Registered: <span class="spantext">{driverData.dateVehicleRegistered}</span></p>
+      <p>Vehicle Type: <span className="spantext">{driverData.vehicleType}</span></p>
+      <p>Engine Size: <span className="spantext">{driverData.engineSize} (CC)</span></p>
+      <p>Current Value: <span className="spantext">£{driverData.currentVehicleValue}</span></p>
+      <p>Date Registered: <span className="spantext">{driverData.dateVehicleRegistered}</span></p>
       </div>
       <h2 className="section-heading">Policy Details</h2>
       <div className="policydetailFormat">
-      <p>Number of Addditional Drivers: <span class="spantext">{driverData.additionalDrivers}</span></p>
-      <p>Used for Commercial Purposes: <span class="spantext">{driverData.usedCommercialPurposes}</span></p>
-      <p>Used Outside State: <span class="spantext">{driverData.usedOutsideState}</span></p>
+      <p>Number of Addditional Drivers: <span className="spantext">{driverData.additionalDrivers}</span></p>
+      <p>Used for Commercial Purposes: <span className="spantext">{driverData.usedCommercialPurposes}</span></p>
+      <p>Used Outside State: <span className="spantext">{driverData.usedOutsideState}</span></p>
       </div>
       
 <div className="buttonFormat">

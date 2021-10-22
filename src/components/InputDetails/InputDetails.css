@@ -51,6 +51,7 @@
 	margin-bottom: 0.8em;
 	font-weight: 600;
 	padding-bottom: 8px;
+	color: #01329e;
 }
 
  input[type='radio']:after {
@@ -130,6 +131,13 @@
 	padding-right: 25px;
 	padding-left: 10px;
 	
+}
+
+.insurance-form .invalidInput{
+	color: red;
+	font-size: 13px;
+	padding-top: 5px;
+	font-weight: 500;
 }
 
 
