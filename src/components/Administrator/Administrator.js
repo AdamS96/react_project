@@ -15,15 +15,23 @@ function Administrator(){
     const [tableData,setTableData] = useState([]);
     const [show, setShow] = useState(false);
     
-    const [phoneNumber,setPhoneNumber] = useState('');
+    const [contactNumber,setContactNumber] = useState('');
+
+    
+
 
     function putUserPhone(e){
         e.preventDefault();
+        console.log(ID);
+        console.log(contactNumber);
+      
+        const formData = {
+          contactNumber,
+        };
+        const endpointURL = `http://localhost:8080/drivers/?id=${ID}&contactNumber=${contactNumber}`;
     
-        const endpointURL = `https://6151d1894a5f22001701d469.mockapi.io/api/v1/users/${ID}`;
-    
-        if(phoneNumber.length === 11){
-          axios.put(endpointURL,{contactNumber:phoneNumber})
+        if(contactNumber.length === 11){
+          axios.put(endpointURL, formData)
             .then((response)=>{console.log(response)})
             .catch((err)=>{console.log(err)});
             window.alert(`Contact Number for Driver ${ID} Successfully Changed.`);
@@ -32,12 +40,13 @@ function Administrator(){
         }
       }
 
+
     function getUserDelete(e){
         e.preventDefault();
         console.log(ID);
         setShow(true);
     
-        const endpointURL = `https://6151d1894a5f22001701d469.mockapi.io/api/v1/users/${ID}`;
+        const endpointURL = `http://localhost:8080/drivers/id?id=${ID}`;
     
         axios.get(endpointURL)
           .then((response)=>{
@@ -78,7 +87,7 @@ function Administrator(){
 
         function deleteUser(){
             if(tableData){
-              const endpointURL = `https://6151d1894a5f22001701d469.mockapi.io/api/v1/users/${ID}`;
+              const endpointURL = `http://localhost:8080/drivers/id?id=${ID}`;
         
               axios.delete(endpointURL)
               .then(()=>{window.alert(`Driver ${ID} Successfully Deleted`)})
@@ -151,7 +160,7 @@ return(
       </Form.Group>
       <Form.Group className="mb-3" controlId="formUserID">
         <Form.Label>Phone Number: </Form.Label>
-        <Form.Control type="number" placeholder="Phone Number" onChange={e=>setPhoneNumber(e.target.value)}/>
+        <Form.Control type="number" placeholder="Phone Number" onChange={e=>setContactNumber(e.target.value)}/>
       </Form.Group>
       </Col>
       <Button variant="primary" type="submit" onClick={putUserPhone}>
