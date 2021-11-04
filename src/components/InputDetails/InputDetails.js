@@ -51,6 +51,14 @@ function InputDetails() {
                                         <Form.Label>Prefix</Form.Label>
                                         <Form.Control type="text" placeholder="Mr" aria-label="prefix" aria-describedby="basic-addon1" {...register('prefix', {
                                             required: '*Required',
+                                            maxLength: {
+                                                message: 'Prefix cannot be over 10 characters long',
+                                                value: 10,
+                                            },
+                                            pattern: {
+                                                value: /^[A-Za-z-]+$/i,
+                                                message: 'Illegal character input'
+                                            },
                                         })} />
                                         <div className="invalidInput"><p>{formState.errors.prefix && formState.errors.prefix.message}</p></div>
                                     </Form.Group>
@@ -62,9 +70,13 @@ function InputDetails() {
                                         <Form.Control type="text" placeholder="Please enter your first name" aria-label="first name" aria-describedby="basic-addon1"
                                             {...register('firstName', {
                                                 required: '*Required',
-                                                minLength: {
-                                                    message: 'Please enter your name',
-
+                                                maxLength: {
+                                                    message: 'First name cannot be over 100 characters',
+                                                    value: 100,
+                                                },
+                                                pattern: {
+                                                    value: /^[A-Za-z-]+$/i,
+                                                    message: 'Illegal character input'
                                                 },
                                             })} />
                                         <div className="invalidInput"><p>{formState.errors.firstName && formState.errors.firstName.message}</p></div>
@@ -77,9 +89,14 @@ function InputDetails() {
                                         <Form.Control type="text" placeholder="Please enter your surname" aria-label="Last name" aria-describedby="basic-addon1"
                                             {...register('lastName', {
                                                 required: '*Required',
-                                                minLength: {
-                                                    message: 'Please enter your name',
+                                                maxLength: {
+                                                    message: 'Last name cannot be over 100 characters',
+                                                    value: 100,
 
+                                                },
+                                                pattern: {
+                                                    value: /^[A-Za-z-]+$/i,
+                                                    message: 'Illegal character input'
                                                 },
                                             })} />
                                         <div className="invalidInput"><p>{formState.errors.lastName && formState.errors.lastName.message}</p></div>
@@ -107,10 +124,12 @@ function InputDetails() {
                                         <Form.Control type="text" placeholder="Please enter your street address" aria-label="Address line 1" aria-describedby="basic-addon1"
                                             {...register('addressLine1', {
                                                 required: '*Required',
-                                                minLength: {
-                                                    message: 'Please enter an address',
+                                                maxLength: {
+                                                    message: 'Please enter less than 250 characters',
+                                                    value: 250,
 
                                                 },
+                                                
                                             })} />
                                         <div className="invalidInput"><p>{formState.errors.addressLine1 && formState.errors.addressLine1.message}</p></div>
                                     </Form.Group>
@@ -121,6 +140,11 @@ function InputDetails() {
                                         <Form.Label>Address line 2</Form.Label>
                                         <Form.Control type="text" placeholder="Please enter your street address" aria-label="Address line 2" aria-describedby="basic-addon1"
                                             {...register('addressLine2', {
+                                                maxLength: {
+                                                    message: 'Please enter less than 250 characters',
+                                                    value: 250,
+
+                                                },
 
                                             })} />
                                     </Form.Group>
@@ -132,9 +156,14 @@ function InputDetails() {
                                         <Form.Control type="text" placeholder="Please enter your city" aria-label="City" aria-describedby="basic-addon1"
                                             {...register('city', {
                                                 required: '*Required',
-                                                minLength: {
-                                                    message: 'Please enter a city',
+                                                maxLength: {
+                                                    message: 'City name must be less than 85 characters',
+                                                    value: 85,
 
+                                                },
+                                                pattern: {
+                                                    value: /^[A-Za-z-]+$/i,
+                                                    message: 'Illegal character input'
                                                 },
                                             })}
                                         />
@@ -148,9 +177,14 @@ function InputDetails() {
                                         <Form.Control type="text" placeholder="Please enter your postcode" aria-label="postcode" aria-describedby="basic-addon1"
                                             {...register('postcode', {
                                                 required: '*Required',
-                                                minLength: {
-                                                    message: 'Please enter a postcode',
+                                                maxLength: {
+                                                    message: 'Over max characters input',
 
+                                                },
+                                                pattern: {
+                                                    //Between 5-7 characters, number 1st on 2nd string, last 2 characters non-numeric
+                                                    value: /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i,
+                                                    message: 'Please enter valid UK postcode format'
                                                 },
                                             })} />
                                         <div className="invalidInput"><p>{formState.errors.postcode && formState.errors.postcode.message}</p></div>
@@ -172,10 +206,7 @@ function InputDetails() {
                                                 <Form.Select
                                                     {...register('vehicleType', {
                                                         required: '*Required',
-                                                        minLength: {
-                                                            message: 'Please select a vehicle type',
-
-                                                        },
+                                                        
                                                     })}>
                                                     <option style={{ display: 'none' }} value="">Select Vehicle Type</option>
                                                     <option value="Cabriolet">Cabriolet</option>
@@ -200,11 +231,7 @@ function InputDetails() {
                                             <Col md={6}>
                                                 <Form.Select
                                                     {...register('engineSize', {
-                                                        required: '*Required',
-                                                        minLength: {
-                                                            message: 'Please select an engine size',
-
-                                                        },
+                                                        required: '*Required'                                                     
                                                     })}>
                                                     <option style={{ display: 'none' }} value="">Select Engine Size</option>
                                                     <option value="1000">1000</option>
@@ -238,6 +265,11 @@ function InputDetails() {
                                                             message: 'Please enter value less than £50,000',
                                                             value: 50000,
                                                         },
+                                                        pattern: {
+                                                            
+                                                            value: /^[0-9]*$/,
+                                                            message: 'Please only enter numeric values'
+                                                        },
                                                     })} />
                                                 <div className="invalidInput"><p>{formState.errors.currentVehicleValue && formState.errors.currentVehicleValue.message}</p></div>
                                             </Col>
@@ -257,10 +289,12 @@ function InputDetails() {
                                                 <Form.Control type="date" placeholder="" aria-label="Vehicle register date" aria-describedby="basic-addon1"
                                                     {...register('dateVehicleRegistered', {
                                                         required: '*Required',
-                                                        minLength: {
-                                                            message: 'Please enter date registered',
+                                                        pattern: {
+                                                            value: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+                                                            message: 'Please enter a valid date in format yyyy-mm-dd',
 
                                                         },
+                                                       
                                                     })} />
                                                 <div className="invalidInput"><p>{formState.errors.dateVehicleRegistered && formState.errors.dateVehicleRegistered.message}</p></div>
                                             </Col>
@@ -286,8 +320,9 @@ function InputDetails() {
                                                 <Form.Select
                                                     {...register('additionalDrivers', {
                                                         required: '*Required',
-                                                        minLength: {
-                                                            message: 'Please select how many additional drivers',
+                                                        min: {
+                                                            value: 1,
+                                                            message: 'Please select between 1-4 additional drivers',
 
                                                         },
                                                     })}>
