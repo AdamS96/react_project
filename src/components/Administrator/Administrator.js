@@ -9,6 +9,7 @@ import { Button, Form, Row, Col, Container, Alert } from 'react-bootstrap';
 function Administrator(){
     
     const [driverID, setDriverID] =  useState('');
+    const [driverIDPhone, setPhoneID] =  useState('');
     //const [driverData, setDriverData] = useState([]);
     let history = useHistory();
     const [ID,setID] = useState('');
@@ -22,19 +23,19 @@ function Administrator(){
 
     function putUserPhone(e){
         e.preventDefault();
-        console.log(ID);
+        console.log(driverIDPhone);
         console.log(contactNumber);
       
         const formData = {
           contactNumber,
         };
-        const endpointURL = `http://localhost:8080/drivers/?id=${ID}&contactNumber=${contactNumber}`;
+        const endpointURL = `http://localhost:8080/drivers/?id=${driverIDPhone}&contactNumber=${contactNumber}`;
     
         if(contactNumber.length === 11){
           axios.put(endpointURL, formData)
             .then((response)=>{console.log(response)})
             .catch((err)=>{console.log(err)});
-            window.alert(`Contact Number for Driver ${ID} Successfully Changed.`);
+            window.alert(`Contact Number for Driver ${driverIDPhone} Successfully Changed.`);
         }else{
           window.alert("Phone number must be 11 digits");
         }
@@ -156,7 +157,7 @@ return(
             <Col sm={5}>
       <Form.Group className="mb-3" controlId="formUserID">
         <Form.Label>Driver ID:</Form.Label>
-        <Form.Control type="text" placeholder="Driver ID" onChange={e=>setID(e.target.value)}/>
+        <Form.Control type="text" placeholder="Driver ID" onChange={e=>setPhoneID(e.target.value)}/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formUserID">
         <Form.Label>Phone Number: </Form.Label>
